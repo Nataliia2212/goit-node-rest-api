@@ -7,6 +7,8 @@ import {
   updateContact,
 } from "../controllers/contactsControllers.js";
 
+import isEmptyBody from "../middlewares/isEmptyBody.js";
+
 const contactsRouter = express.Router();
 
 contactsRouter.get("/", getAllContacts);
@@ -15,8 +17,10 @@ contactsRouter.get("/:id", getOneContact);
 
 contactsRouter.delete("/:id", deleteContact);
 
-contactsRouter.post("/", createContact);
+contactsRouter.post("/", isEmptyBody, createContact);
 
-contactsRouter.put("/:id", updateContact);
+contactsRouter.put("/:id", isEmptyBody, updateContact);
+
+contactsRouter.patch("/:id", isEmptyBody, updateContact);
 
 export default contactsRouter;
