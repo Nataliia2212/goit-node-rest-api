@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import mongoose from "mongoose";
+// import "dotenv/config";
 
 import contactsRouter from "./routes/contactsRouter.js";
 
@@ -21,6 +23,17 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message });
 });
 
-app.listen(3000, () => {
-  console.log("Server is running. Use our API on port: 3000");
-});
+DB_HOST =
+  "mongodb+srv://Nataliia:22121992Anafa@cluster0.qsx5vht.mongodb.net/db-contacts?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose
+  .connect(DB_HOST)
+  .then(() => {
+    app.listen(3000, () => {
+      console.log("Server is running. Use our API on port: 3000");
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+    process.exit(1);
+  });
