@@ -5,7 +5,8 @@ import ctrlWrapper from "../decorators/ctrlWrapper.js";
 import HttpError from "../helpers/HttpError.js";
 
 const getAllContacts = async (req, res) => {
-  const result = await contactsService.listContacts();
+  const fields = "-__v ";
+  const result = await contactsService.listContacts({ fields });
 
   res.json(result);
 };
