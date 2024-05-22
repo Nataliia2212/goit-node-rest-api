@@ -6,6 +6,7 @@ import isEmptyBody from "../middlewares/isEmptyBody.js";
 import upload from "../middlewares/upload.js";
 
 import {
+  userEmailSchema,
   userSigninSchema,
   userSignupSchema,
   userUpdateSchema,
@@ -23,6 +24,15 @@ authRouter.post(
   isEmptyBody,
   validateBody(userSignupSchema),
   authControllers.signup
+);
+
+authRouter.get("/verify/:verificationToken", authControllers.verify);
+
+authRouter.post(
+  "/verify",
+  isEmptyBody,
+  validateBody(userEmailSchema),
+  authControllers.resendEmail
 );
 
 authRouter.post(
